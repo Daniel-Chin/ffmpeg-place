@@ -1,0 +1,5 @@
+ffmpeg -i to_drop_frame.mp4 -an -vcodec rawvideo -pix_fmt yuv420p dropping_frame.yuv
+
+ffmpeg -r 4 -s WxH -i dropping_frame.yuv -filter:v select="not(mod(n-1\,4))" -c:v rawvideo -r 1 -format rawvideo -pix_fmt yuv420p -an dropped_frame.yuv
+
+ffmpeg -s WxH -i dropped_frame.yuv dropped_frame.gif
